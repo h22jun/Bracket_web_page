@@ -17,8 +17,9 @@
         :root {
             --color-bg: #000000;
             --color-bg-card: #1A1A1A;
-            --color-primary: #E6FF00; /* 형광 연두 */
-            --color-primary-hover: #C8E600;
+            /* 메인 컬러 변경: #E6FF00 -> #E6FF79 */
+            --color-primary: #E6FF79; 
+            --color-primary-hover: #d4eb60; /* 호버 색상도 약간 어둡게 조정 */
             --color-text-main: #FFFFFF;
             --color-text-sub: #A1A1A1;
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -58,13 +59,14 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 32px;
+            padding: 12px 24px;
             font-size: 1rem;
             font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
             transition: var(--transition);
-            gap: 10px;
+            gap: 8px;
+            white-space: nowrap;
         }
 
         .btn-primary {
@@ -128,7 +130,7 @@
             z-index: 1000;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(12px);
-            padding: 20px 0;
+            padding: 16px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -139,7 +141,7 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--color-text-main);
             display: flex;
@@ -148,23 +150,32 @@
         }
 
         .logo img {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px; 
-            object-fit: cover;
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
         }
 
-        .nav-links {
+        .nav-actions {
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 20px;
         }
-        .nav-links a {
-            font-weight: 600; 
-            font-size: 0.95rem; 
-            color: var(--color-text-sub);
+
+        .nav-link-team {
+            font-weight: 700; 
+            font-size: 1rem; 
+            color: var(--color-text-main);
             transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .nav-links a:hover { color: var(--color-primary); }
+        .nav-link-team:hover { color: var(--color-primary); }
+
+        @media (max-width: 480px) {
+            .nav-actions { gap: 15px; }
+            .btn { padding: 10px 16px; font-size: 0.9rem; }
+            .logo span { display: none; }
+        }
 
         /* --- 5. Hero Section --- */
         .hero {
@@ -208,20 +219,15 @@
         .mockup-container {
             position: relative;
             width: 100%;
-            max-width: 280px; /* Desktop size optimized */
-            aspect-ratio: 1206/2622;
+            max-width: 280px; 
             margin: 0 auto;
-            border-radius: 48px;
-            overflow: hidden;
-            box-shadow: 0 0 60px rgba(230, 255, 0, 0.1);
-            border: 6px solid #222;
-            background: #000;
         }
 
         .mockup-container img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
 
         @media (max-width: 1024px) {
@@ -231,10 +237,9 @@
         @media (max-width: 768px) {
             .hero { min-height: auto; padding-bottom: 60px; }
             .hero-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .hero-text h1 { font-size: 2.4rem; margin-bottom: 16px; } /* Adjusted for mobile readability */
+            .hero-text h1 { font-size: 2.4rem; margin-bottom: 16px; }
             .hero-text p { margin: 0 auto 30px; font-size: 1.05rem; }
             .hero-btns { justify-content: center; }
-            /* Mobile mockup size optimized */
             .mockup-container { margin-top: 20px; max-width: 220px; }
             .nav-links { display: none; }
         }
@@ -306,11 +311,11 @@
         }
 
         .solution-card {
-            background: rgba(230, 255, 0, 0.03);
+            background: rgba(230, 255, 121, 0.03); /* Updated with new color alpha */
             padding: 40px 30px;
             border-radius: 24px;
             border: 1px solid var(--color-primary);
-            box-shadow: 0 0 40px rgba(230, 255, 0, 0.05);
+            box-shadow: 0 0 40px rgba(230, 255, 121, 0.05); /* Updated with new color alpha */
             position: relative;
             z-index: 1;
         }
@@ -379,9 +384,9 @@
             text-align: center;
             margin: 80px 0;
             padding: 60px 20px;
-            background: linear-gradient(180deg, rgba(230, 255, 0, 0.05) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(180deg, rgba(230, 255, 121, 0.05) 0%, rgba(0,0,0,0) 100%); /* Updated gradient */
             border-radius: 24px;
-            border-top: 1px solid rgba(230, 255, 0, 0.1);
+            border-top: 1px solid rgba(230, 255, 121, 0.1); /* Updated border */
         }
 
         .workflow-bridge h4 { font-size: 1.8rem; color: #fff; margin-bottom: 12px; }
@@ -413,19 +418,18 @@
 
         .step-img-container {
             width: 100%;
-            aspect-ratio: 1206/2622;
-            background: var(--color-bg-card);
-            border-radius: 24px;
             margin-bottom: 24px;
-            overflow: hidden;
-            border: 1px solid #333;
-            /* Reduced max-width for steps to match design */
             max-width: 240px; 
             margin-left: auto;
             margin-right: auto;
         }
 
-        .step-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .step-img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+        }
 
         .step-item h4 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
         .step-item p { color: var(--color-text-sub); font-size: 0.95rem; line-height: 1.5; }
@@ -490,13 +494,16 @@
     <header>
         <div class="container nav-container">
             <div class="logo">
-                <img src="icon.jpg" alt="Bracket App Icon">
-                Bracket
+                <!-- [이미지 위치] 로고 아이콘 -->
+                <!-- 교체 예시: <img src="assets/logo.png" alt="Bracket App Icon"> -->
+                 <img src="/assets/BracketLogo.png" alt="Bracket App Icon">
+                <span>Bracket</span>
             </div>
-            <nav class="nav-links">
-                <a href="team.html">Team</a>
-            </nav>
-            <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;" target="_blank">다운로드</a>
+            
+            <div class="nav-actions">
+                <a href="team.html" class="nav-link-team">TEAM</a>
+                <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn btn-primary" target="_blank">다운로드</a>
+            </div>
         </div>
     </header>
 
@@ -512,7 +519,9 @@
             </div>
             <div class="hero-visual fade-up" style="transition-delay: 0.2s;">
                 <div class="mockup-container">
-                    <img src="hero.png" alt="Bracket App Interface">
+                    <!-- [이미지 위치] 메인 히어로 이미지 (목업 적용된 이미지 권장) -->
+                    <!-- 교체 예시: <img src="assets/hero_mockup.png" alt="Bracket App Interface"> -->
+                    <img src="assets/mainmockup.jpg" alt="Bracket App Interface">
                 </div>
             </div>
         </div>
@@ -563,6 +572,8 @@
         <div class="container solution-content">
             <div class="solution-visual fade-up">
                 <div class="mockup-container">
+                     <!-- [이미지 위치] Tri-shot 설명 이미지 -->
+                     <!-- 교체 예시: <img src="assets/trishot_mockup.png" alt="Tri-shot Interface"> -->
                      <img src="solution.png" alt="Tri-shot Interface">
                 </div>
             </div>
@@ -594,6 +605,7 @@
                 <div class="steps-grid-3">
                     <div class="step-item">
                         <div class="step-img-container">
+                            <!-- [이미지 위치] Step 1 이미지 -->
                             <img src="step1.jpg" alt="Preset List">
                         </div>
                         <div class="step-number">1</div>
@@ -602,6 +614,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
+                            <!-- [이미지 위치] Step 2 이미지 -->
                             <img src="step2.png" alt="Shooting">
                         </div>
                         <div class="step-number">2</div>
@@ -610,6 +623,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
+                            <!-- [이미지 위치] Step 3 이미지 -->
                             <img src="solution.png" alt="Auto Loop">
                         </div>
                         <div class="step-number">3</div>
@@ -634,6 +648,7 @@
                 <div class="steps-grid-3">
                     <div class="step-item">
                         <div class="step-img-container">
+                            <!-- [이미지 위치] Step 4 이미지 -->
                             <div style="width:100%; height:100%; background:#222; display:flex; align-items:center; justify-content:center; color:#666;">
                                 <i class="fa-solid fa-images fa-3x"></i>
                             </div>
@@ -644,6 +659,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
+                            <!-- [이미지 위치] Step 5 이미지 -->
                             <img src="step3.jpg" alt="AI Grouping">
                         </div>
                         <div class="step-number">5</div>
@@ -652,6 +668,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
+                            <!-- [이미지 위치] Step 6 이미지 -->
                             <img src="step3.jpg" alt="Selection">
                         </div>
                         <div class="step-number">6</div>
@@ -680,7 +697,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="logo" style="color: #666; gap: 8px;">
-                   <img src="icon.jpg" style="width:24px; height:24px; border-radius:6px; filter: grayscale(100%);" alt="icon"> Bracket
+                   <!-- [이미지 위치] 푸터 로고 아이콘 -->
+                   <img src="icon.jpg" style="width:24px; height:24px; object-fit: contain;" alt="icon"> Bracket
                 </div>
                 <div class="footer-links">
                     <a href="#">GitHub</a>
