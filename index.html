@@ -34,7 +34,9 @@
         }
 
         body {
-            background-color: var(--color-bg);
+            /* [수정됨] 전체 페이지에 걸친 하나의 부드러운 그라데이션 */
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 25%, #111111 50%, #1a1a1a 75%, #000000 100%);
+            background-attachment: fixed; /* 스크롤해도 배경 고정 */
             color: var(--color-text-main);
             font-family: var(--font-main);
             line-height: 1.6;
@@ -85,26 +87,8 @@
             padding: 120px 0;
         }
 
-        /* Gradient Backgrounds */
-        .bg-hero {
-            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 80%);
-        }
-        
-        .bg-gradient-down {
-            background: linear-gradient(180deg, #000000 0%, #111111 100%);
-        }
-
-        .bg-gradient-up {
-            background: linear-gradient(180deg, #111111 0%, #000000 100%);
-        }
-
-        .bg-gradient-seamless {
-            background: linear-gradient(180deg, #000000 0%, #111111 50%, #000000 100%);
-        }
-
-        .bg-gradient-cta {
-            background: radial-gradient(circle at 50% 50%, #1A1A1A 0%, #000000 100%);
-        }
+        /* [삭제됨] 개별 섹션 배경 클래스 제거 (body 배경 사용) */
+        /* .bg-hero, .bg-gradient-down, .bg-gradient-up, .bg-gradient-seamless, .bg-gradient-cta 제거 */
 
         @media (max-width: 768px) {
             .section-padding { padding: 80px 0; }
@@ -128,7 +112,8 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.85);
+            /* 배경 투명도 조절로 본문 그라데이션과 어우러지게 */
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(12px);
             padding: 16px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -184,6 +169,7 @@
             align-items: center;
             position: relative;
             padding-top: 80px;
+            /* 배경 없음 (body 배경 사용) */
         }
 
         .hero-content {
@@ -215,16 +201,30 @@
             flex-wrap: wrap;
         }
 
-        /* --- [수정됨] 데스크탑 목업 사이즈 확대 --- */
-        .mockup-container {
+        /* Mockup Size: Desktop Large */
+        .mockup-container-hero {
             position: relative;
             width: 100%;
-            margin: 0 auto;
-            /* 데스크탑 기본 사이즈 대폭 확대 */
             max-width: 550px; 
+            margin: 0 auto;
+        }
+        
+        .mockup-container-hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
 
-        .mockup-container img {
+        /* Mockup Size: Feature Sections */
+        .mockup-container-feature {
+            position: relative;
+            width: 100%;
+            max-width: 300px; 
+            margin: 0 auto;
+        }
+
+        .mockup-container-feature img {
             width: 100%;
             height: auto;
             display: block;
@@ -233,7 +233,7 @@
 
         @media (max-width: 1024px) {
             .hero-text h1 { font-size: 3rem; }
-            .mockup-container { max-width: 450px; }
+            .mockup-container-hero { max-width: 450px; }
         }
 
         @media (max-width: 768px) {
@@ -242,8 +242,11 @@
             .hero-text h1 { font-size: 2.4rem; margin-bottom: 16px; }
             .hero-text p { margin: 0 auto 30px; font-size: 1.05rem; }
             .hero-btns { justify-content: center; }
-            /* --- [수정됨] 모바일은 적당한 크기 유지 --- */
-            .mockup-container { margin-top: 20px; max-width: 240px; }
+            
+            /* Mobile Size */
+            .mockup-container-hero, 
+            .mockup-container-feature { margin-top: 20px; max-width: 240px; }
+            
             .nav-links { display: none; }
         }
 
@@ -259,6 +262,7 @@
             margin-bottom: 16px;
         }
 
+        /* PS Grid */
         .ps-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -272,12 +276,14 @@
         }
 
         .problem-card {
-            background: #161616;
+            /* 투명도 추가하여 배경 그라데이션 비치게 */
+            background: rgba(22, 22, 22, 0.8);
             padding: 40px 30px;
             border-radius: 24px;
             border: 1px solid #333;
             position: relative;
             z-index: 1;
+            backdrop-filter: blur(5px);
         }
 
         .problem-card h3 { font-size: 1.3rem; color: #ccc; margin-bottom: 10px; font-weight: 700; }
@@ -313,13 +319,15 @@
         }
 
         .solution-card {
-            background: rgba(230, 255, 121, 0.03); 
+            /* 투명도 추가 */
+            background: rgba(230, 255, 121, 0.05); 
             padding: 40px 30px;
             border-radius: 24px;
             border: 1px solid var(--color-primary);
             box-shadow: 0 0 40px rgba(230, 255, 121, 0.05); 
             position: relative;
             z-index: 1;
+            backdrop-filter: blur(5px);
         }
 
         .solution-card h3 { font-size: 1.4rem; color: #fff; margin-bottom: 10px; font-weight: 700; }
@@ -336,15 +344,15 @@
             .section-title h2 { font-size: 2rem; }
         }
 
-        /* --- 7. Solution Section (Tri-shot) --- */
-        .solution-content {
+        /* --- 7. Feature Sections (Tri-shot & AI) --- */
+        .feature-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: center;
         }
 
-        .solution-text h2 {
+        .feature-text h2 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 30px;
@@ -365,15 +373,10 @@
             margin-top: 5px;
         }
 
-        /* Solution 섹션 목업은 메인보다는 조금 작게 유지 */
-        .solution-content .mockup-container {
-            max-width: 300px;
-        }
-
         @media (max-width: 768px) {
-            .solution-content { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; gap: 40px; }
-            .solution-content .mockup-container { max-width: 240px; }
-            .solution-text h2 { font-size: 2.2rem; }
+            .feature-content { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; gap: 40px; }
+            .feature-content.reverse { flex-direction: column-reverse; } 
+            .feature-text h2 { font-size: 2.2rem; }
         }
 
         /* --- 8. How It Works --- */
@@ -392,9 +395,10 @@
             text-align: center;
             margin: 80px 0;
             padding: 60px 20px;
-            background: linear-gradient(180deg, rgba(230, 255, 121, 0.05) 0%, rgba(0,0,0,0) 100%); 
+            /* 투명도 그라데이션 */
+            background: radial-gradient(circle, rgba(230, 255, 121, 0.03) 0%, rgba(0,0,0,0) 70%);
             border-radius: 24px;
-            border-top: 1px solid rgba(230, 255, 121, 0.1); 
+            border-top: 1px solid rgba(230, 255, 121, 0.2);
         }
 
         .workflow-bridge h4 { font-size: 1.8rem; color: #fff; margin-bottom: 12px; }
@@ -424,32 +428,28 @@
             z-index: 2;
         }
 
-        /* --- [수정됨] 이미지 크기 강제 통일 --- */
+        /* Step Image Container */
         .step-img-container {
             width: 100%;
             margin-bottom: 24px;
             max-width: 240px; 
-            /* 비율 강제 (아이폰 비율) */
             aspect-ratio: 1206/2622; 
             margin-left: auto;
             margin-right: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 이미지가 넘치지 않도록 */
             overflow: hidden; 
         }
 
         .step-img-container img {
             width: 100%;
             height: 100%;
-            /* 중요: 이미지를 꽉 채우되 비율 유지하며 자르기 (cover) */
             object-fit: cover; 
             display: block;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
         }
         
-        /* 플레이스홀더용 div도 동일하게 */
         .step-img-container div {
             width: 100%;
             height: 100%;
@@ -468,6 +468,8 @@
         .cta-section {
             text-align: center;
             padding: 120px 20px;
+            /* 하단부 자연스러운 마무리 */
+            background: transparent; 
         }
         
         .cta-content { max-width: 600px; margin: 0 auto; }
@@ -482,9 +484,10 @@
         /* --- 12. Footer --- */
         footer {
             padding: 60px 0;
-            border-top: 1px solid #222;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.9rem;
             color: #666;
+            background: #000; /* 푸터는 완전 검정으로 마무리 */
         }
 
         .footer-content {
@@ -518,7 +521,7 @@
     <header>
         <div class="container nav-container">
             <div class="logo">
-                <!-- [수정됨] 로고 경로: 앞에 / 제거 -->
+                <!-- [이미지 위치] 상단 로고 아이콘 -->
                 <img src="assets/BracketLogo.png" alt="Bracket App Icon">
                 <span>Bracket</span>
             </div>
@@ -530,8 +533,8 @@
         </div>
     </header>
 
-    <!-- Hero Section (Gradient BG) -->
-    <section class="hero bg-hero">
+    <!-- Hero Section (Transparent BG) -->
+    <section class="hero">
         <div class="container hero-content">
             <div class="hero-text fade-up">
                 <h1>15초 걸리던<br>설정 변경,<br>이제 <span class="text-primary">0.3초</span></h1>
@@ -541,16 +544,16 @@
                 </div>
             </div>
             <div class="hero-visual fade-up" style="transition-delay: 0.2s;">
-                <div class="mockup-container">
-                    <!-- [수정됨] 메인 목업 이미지 -->
+                <div class="mockup-container-hero">
+                    <!-- [이미지 위치] 메인 목업 -->
                     <img src="assets/mainmockup.png" alt="Bracket App Interface">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Problem & Solution Section (Gradient BG: Black to Dark) -->
-    <section class="section-padding bg-gradient-down">
+    <!-- Problem & Solution Section (Transparent BG) -->
+    <section class="section-padding">
         <div class="container">
             <div class="section-title fade-up">
                 <h2>당신이 순간을 놓치는 이유<br><span style="font-size: 0.6em; color: #666; font-weight: 400; display:block; margin-top:10px;">그리고 Bracket이 제시하는 명쾌한 해답</span></h2>
@@ -589,16 +592,16 @@
         </div>
     </section>
 
-    <!-- Solution Section (Tri-shot) (Gradient BG: Dark to Black) -->
-    <section class="section-padding bg-gradient-up" style="padding-bottom: 80px;">
-        <div class="container solution-content">
-            <div class="solution-visual fade-up">
-                <div class="mockup-container">
-                     <!-- [수정됨] Tri-shot 설명 이미지 -->
+    <!-- Feature Section 1: Tri-shot (Transparent BG) -->
+    <section class="section-padding" style="padding-bottom: 80px;">
+        <div class="container feature-content">
+            <div class="feature-mockup fade-up">
+                <div class="mockup-container-feature">
+                     <!-- [이미지 위치] Tri-shot 설명 이미지 -->
                      <img src="assets/trishotimage.png" alt="Tri-shot Interface">
                 </div>
             </div>
-            <div class="solution-text fade-up" id="solution-text">
+            <div class="feature-text fade-up">
                 <h2 class="text-primary">Tri-shot:<br>셔터마다 바뀌는<br>세 가지 시선</h2>
                 <ul class="feature-list">
                     <li><i class="fa-solid fa-check"></i> 셔터를 누를 때마다 프리셋 자동 순환 (A→B→C)</li>
@@ -609,8 +612,28 @@
         </div>
     </section>
 
-    <!-- How It Works (Gradient BG: Seamless Black-Dark-Black) -->
-    <section class="section-padding how-it-works bg-gradient-seamless">
+    <!-- Feature Section 2: AI Grouping (New) -->
+    <section class="section-padding" style="padding-top: 0; padding-bottom: 80px;">
+        <div class="container feature-content">
+            <div class="feature-text fade-up" style="order: 0;"> 
+                <h2 class="text-primary">AI 사진 그룹화:<br>촬영은 마음껏,<br>정리는 가볍게</h2>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> 늘어난 사진량에 대한 부담을 덜어드립니다.</li>
+                    <li><i class="fa-solid fa-check"></i> 유사한 장면을 AI가 자동으로 묶어 정리합니다.</li>
+                    <li><i class="fa-solid fa-check"></i> 그룹별로 베스트 컷만 빠르게 선별하세요.</li>
+                </ul>
+            </div>
+            <div class="feature-mockup fade-up" style="order: 1;">
+                <div class="mockup-container-feature">
+                     <!-- [이미지 위치] AI Grouping -->
+                     <img src="assets/aigroupimage.png" alt="AI Grouping Interface">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works (Transparent BG) -->
+    <section class="section-padding how-it-works">
         <div class="container">
             <div class="section-title fade-up">
                 <h2>How It Works</h2>
@@ -626,7 +649,7 @@
                 <div class="steps-grid-3">
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [수정됨] Step 1 이미지 -->
+                            <!-- [이미지 위치] Step 1 -->
                             <img src="assets/settingmockup.png" alt="Preset List">
                         </div>
                         <div class="step-number">1</div>
@@ -635,7 +658,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [수정됨] Step 2 이미지 -->
+                            <!-- [이미지 위치] Step 2 -->
                             <img src="assets/trishot1.png" alt="Shooting">
                         </div>
                         <div class="step-number">2</div>
@@ -644,7 +667,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [수정됨] Step 3 이미지 -->
+                            <!-- [이미지 위치] Step 3 -->
                             <img src="assets/trishot2.png" alt="Auto Loop">
                         </div>
                         <div class="step-number">3</div>
@@ -669,7 +692,7 @@
                 <div class="steps-grid-3">
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [수정됨] Step 4 이미지 -->
+                            <!-- [이미지 위치] Step 4 -->
                             <img src="assets/aigroup1.png" alt="Photo Pile">
                         </div>
                         <div class="step-number">4</div>
@@ -678,7 +701,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [수정됨] Step 5 이미지 -->
+                            <!-- [이미지 위치] Step 5 -->
                             <img src="assets/aigroup2.png" alt="AI Grouping">
                         </div>
                         <div class="step-number">5</div>
@@ -687,7 +710,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [수정됨] Step 6 이미지 -->
+                            <!-- [이미지 위치] Step 6 -->
                             <img src="assets/aigroup3.png" alt="Selection">
                         </div>
                         <div class="step-number">6</div>
@@ -700,8 +723,8 @@
         </div>
     </section>
     
-    <!-- CTA Section (Gradient BG: Radial for seamless end) -->
-    <section id="cta" class="cta-section bg-gradient-cta fade-up">
+    <!-- CTA Section -->
+    <section id="cta" class="cta-section fade-up">
         <div class="cta-content">
             <h2>더 이상 순간을 놓치지 마세요</h2>
             <p>지금 Bracket을 다운로드하고, 모든 결정적 순간을 담으세요.</p>
@@ -716,7 +739,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="logo" style="color: #666; gap: 8px;">
-                   <!-- [수정됨] 푸터 로고 경로 -->
+                   <!-- [이미지 위치] 푸터 로고 -->
                    <img src="assets/BracketLogo.png" style="width:24px; height:24px; object-fit: contain;" alt="icon"> Bracket
                 </div>
                 <div class="footer-links">
