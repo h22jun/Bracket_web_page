@@ -17,7 +17,6 @@
         :root {
             --color-bg: #000000;
             --color-bg-card: #1A1A1A;
-            /* 메인 컬러: #E6FF79 */
             --color-primary: #E6FF79; 
             --color-primary-hover: #dbe660;
             --color-text-main: #FFFFFF;
@@ -215,30 +214,45 @@
             flex-wrap: wrap;
         }
 
-        /* Optimized Mockup Size */
-        .mockup-container {
+        /* Mockup Size: Desktop Large */
+        .mockup-container-hero {
             position: relative;
             width: 100%;
             max-width: 550px; 
             margin: 0 auto;
         }
-
-        .mockup-container img {
+        
+        .mockup-container-hero img {
             width: 100%;
             height: auto;
             display: block;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
 
-        /* [수정됨] Feature 섹션용 목업: 1.5배 확대 (300px -> 450px) */
-        .mockup-container-feature {
+        /* Tri-shot Section Mockup Size (Standard) */
+        .mockup-container-trishot {
             position: relative;
             width: 100%;
-            max-width: 450px; 
+            max-width: 300px; /* 기존 크기 유지 */
             margin: 0 auto;
         }
 
-        .mockup-container-feature img {
+        .mockup-container-trishot img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+        }
+
+        /* [수정됨] AI Grouping Section Mockup Size (Large) */
+        .mockup-container-ai {
+            position: relative;
+            width: 100%;
+            max-width: 450px; /* 1.5배 확대 */
+            margin: 0 auto;
+        }
+
+        .mockup-container-ai img {
             width: 100%;
             height: auto;
             display: block;
@@ -247,8 +261,8 @@
 
         @media (max-width: 1024px) {
             .hero-text h1 { font-size: 3rem; }
-            .mockup-container { max-width: 450px; }
-            .mockup-container-feature { max-width: 380px; }
+            .mockup-container-hero { max-width: 450px; }
+            .mockup-container-ai { max-width: 380px; }
         }
 
         @media (max-width: 768px) {
@@ -258,9 +272,11 @@
             .hero-text p { margin: 0 auto 30px; font-size: 1.05rem; }
             .hero-btns { justify-content: center; }
             
-            /* [수정됨] 모바일: 1.2배 확대 (240px -> 288px) */
-            .mockup-container { margin-top: 20px; max-width: 288px; }
-            .mockup-container-feature { margin-top: 20px; max-width: 288px; }
+            /* Mobile Size */
+            .mockup-container-hero { margin-top: 20px; max-width: 240px; }
+            .mockup-container-trishot { margin-top: 20px; max-width: 240px; }
+            /* [수정됨] AI Grouping Mobile Size (1.2x larger) */
+            .mockup-container-ai { margin-top: 20px; max-width: 288px; }
             
             .nav-links { display: none; }
         }
@@ -355,15 +371,16 @@
             .section-title h2 { font-size: 2rem; }
         }
 
-        /* --- 7. Solution Section (Tri-shot) --- */
-        .solution-content {
+        /* --- 7. Feature Sections (Tri-shot & AI) --- */
+        .feature-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
-            align-items: center;
+            /* [수정됨] Vertical Alignment Fix */
+            align-items: center; 
         }
 
-        .solution-text h2 {
+        .feature-text h2 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 30px;
@@ -385,8 +402,9 @@
         }
 
         @media (max-width: 768px) {
-            .solution-content { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; gap: 40px; }
-            .solution-text h2 { font-size: 2.2rem; }
+            .feature-content { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; gap: 40px; }
+            .feature-content.reverse { flex-direction: column-reverse; } 
+            .feature-text h2 { font-size: 2.2rem; }
         }
 
         /* --- 8. How It Works --- */
@@ -407,7 +425,7 @@
             padding: 60px 20px;
             background: radial-gradient(circle, rgba(230, 255, 121, 0.03) 0%, rgba(0,0,0,0) 70%);
             border-radius: 24px;
-            border-top: 1px solid rgba(230, 255, 121, 0.2); /* 구분선 복구 */
+            border-top: 1px solid rgba(230, 255, 121, 0.2);
         }
 
         .workflow-bridge h4 { font-size: 1.8rem; color: #fff; margin-bottom: 12px; }
@@ -527,7 +545,7 @@
     <header>
         <div class="container nav-container">
             <div class="logo">
-                <!-- [이미지 위치] 상단 로고 아이콘 (경로 수정됨) -->
+                <!-- [이미지 위치] 상단 로고 아이콘 -->
                 <img src="assets/BracketLogo.png" alt="Bracket App Icon">
                 <span>Bracket</span>
             </div>
@@ -550,7 +568,7 @@
                 </div>
             </div>
             <div class="hero-visual fade-up" style="transition-delay: 0.2s;">
-                <div class="mockup-container">
+                <div class="mockup-container-hero">
                     <!-- [이미지 위치] 메인 히어로 이미지 -->
                     <img src="assets/mainmockup.png" alt="Bracket App Interface">
                 </div>
@@ -598,16 +616,17 @@
         </div>
     </section>
 
-    <!-- Solution Section (Tri-shot) (Gradient BG: Dark to Black) -->
+    <!-- Feature Section 1: Tri-shot (Gradient BG: Dark to Black) -->
     <section class="section-padding bg-gradient-up" style="padding-bottom: 80px;">
-        <div class="container solution-content">
-            <div class="solution-visual fade-up">
-                <div class="mockup-container">
+        <div class="container feature-content">
+            <div class="feature-mockup fade-up">
+                <!-- [수정됨] Tri-shot 섹션용 목업 컨테이너 (기존 사이즈 유지) -->
+                <div class="mockup-container-trishot">
                      <!-- [이미지 위치] Tri-shot 설명 이미지 -->
                      <img src="assets/trishotimage.png" alt="Tri-shot Interface">
                 </div>
             </div>
-            <div class="solution-text fade-up" id="solution-text">
+            <div class="feature-text fade-up">
                 <h2 class="text-primary">Tri-shot:<br>셔터마다 바뀌는<br>세 가지 시선</h2>
                 <ul class="feature-list">
                     <li><i class="fa-solid fa-check"></i> 셔터를 누를 때마다 프리셋 자동 순환 (A→B→C)</li>
@@ -630,8 +649,8 @@
                 </ul>
             </div>
             <div class="feature-mockup fade-up" style="order: 1;">
-                <!-- [수정됨] 피쳐 섹션용 목업 컨테이너 -->
-                <div class="mockup-container-feature">
+                <!-- [수정됨] AI Grouping 섹션용 목업 컨테이너 (크게) -->
+                <div class="mockup-container-ai">
                      <!-- [이미지 위치] AI Grouping -->
                      <img src="assets/aigroupimage.png" alt="AI Grouping Interface">
                 </div>
@@ -750,8 +769,8 @@
                    <img src="assets/BracketLogo.png" style="width:24px; height:24px; object-fit: contain;" alt="icon"> Bracket
                 </div>
                 <div class="footer-links">
-                    <a href="https://github.com/DeveloperAcademy-POSTECH/2025-C6-A6-Bracket">GitHub</a>
-                    <a href="https://slime-shirt-140.notion.site/Bracket-2b002aff8b52809d81b7c6abf119eca3">Notion</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">Notion</a>
                 </div>
             </div>
             <div style="border-top: 1px solid #333; padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
