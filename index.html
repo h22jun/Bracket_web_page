@@ -17,9 +17,9 @@
         :root {
             --color-bg: #000000;
             --color-bg-card: #1A1A1A;
-            /* 메인 컬러 변경: #E6FF00 -> #E6FF79 */
+            /* 메인 컬러: #E6FF79 */
             --color-primary: #E6FF79; 
-            --color-primary-hover: #d4eb60; /* 호버 색상도 약간 어둡게 조정 */
+            --color-primary-hover: #dbe660;
             --color-text-main: #FFFFFF;
             --color-text-sub: #A1A1A1;
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -215,12 +215,13 @@
             flex-wrap: wrap;
         }
 
-        /* Optimized Mockup Size */
+        /* --- [수정됨] 데스크탑 목업 사이즈 확대 --- */
         .mockup-container {
             position: relative;
             width: 100%;
-            max-width: 280px; 
             margin: 0 auto;
+            /* 데스크탑 기본 사이즈 대폭 확대 */
+            max-width: 550px; 
         }
 
         .mockup-container img {
@@ -232,6 +233,7 @@
 
         @media (max-width: 1024px) {
             .hero-text h1 { font-size: 3rem; }
+            .mockup-container { max-width: 450px; }
         }
 
         @media (max-width: 768px) {
@@ -240,7 +242,8 @@
             .hero-text h1 { font-size: 2.4rem; margin-bottom: 16px; }
             .hero-text p { margin: 0 auto 30px; font-size: 1.05rem; }
             .hero-btns { justify-content: center; }
-            .mockup-container { margin-top: 20px; max-width: 220px; }
+            /* --- [수정됨] 모바일은 적당한 크기 유지 --- */
+            .mockup-container { margin-top: 20px; max-width: 240px; }
             .nav-links { display: none; }
         }
 
@@ -256,7 +259,6 @@
             margin-bottom: 16px;
         }
 
-        /* PS Grid */
         .ps-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -311,11 +313,11 @@
         }
 
         .solution-card {
-            background: rgba(230, 255, 121, 0.03); /* Updated with new color alpha */
+            background: rgba(230, 255, 121, 0.03); 
             padding: 40px 30px;
             border-radius: 24px;
             border: 1px solid var(--color-primary);
-            box-shadow: 0 0 40px rgba(230, 255, 121, 0.05); /* Updated with new color alpha */
+            box-shadow: 0 0 40px rgba(230, 255, 121, 0.05); 
             position: relative;
             z-index: 1;
         }
@@ -363,8 +365,14 @@
             margin-top: 5px;
         }
 
+        /* Solution 섹션 목업은 메인보다는 조금 작게 유지 */
+        .solution-content .mockup-container {
+            max-width: 300px;
+        }
+
         @media (max-width: 768px) {
             .solution-content { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; gap: 40px; }
+            .solution-content .mockup-container { max-width: 240px; }
             .solution-text h2 { font-size: 2.2rem; }
         }
 
@@ -384,9 +392,9 @@
             text-align: center;
             margin: 80px 0;
             padding: 60px 20px;
-            background: linear-gradient(180deg, rgba(230, 255, 121, 0.05) 0%, rgba(0,0,0,0) 100%); /* Updated gradient */
+            background: linear-gradient(180deg, rgba(230, 255, 121, 0.05) 0%, rgba(0,0,0,0) 100%); 
             border-radius: 24px;
-            border-top: 1px solid rgba(230, 255, 121, 0.1); /* Updated border */
+            border-top: 1px solid rgba(230, 255, 121, 0.1); 
         }
 
         .workflow-bridge h4 { font-size: 1.8rem; color: #fff; margin-bottom: 12px; }
@@ -416,19 +424,35 @@
             z-index: 2;
         }
 
+        /* --- [수정됨] 이미지 크기 강제 통일 --- */
         .step-img-container {
             width: 100%;
             margin-bottom: 24px;
             max-width: 240px; 
+            /* 비율 강제 (아이폰 비율) */
+            aspect-ratio: 1206/2622; 
             margin-left: auto;
             margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 이미지가 넘치지 않도록 */
+            overflow: hidden; 
         }
 
         .step-img-container img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            /* 중요: 이미지를 꽉 채우되 비율 유지하며 자르기 (cover) */
+            object-fit: cover; 
             display: block;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+        }
+        
+        /* 플레이스홀더용 div도 동일하게 */
+        .step-img-container div {
+            width: 100%;
+            height: 100%;
         }
 
         .step-item h4 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
@@ -494,9 +518,8 @@
     <header>
         <div class="container nav-container">
             <div class="logo">
-                <!-- [이미지 위치] 로고 아이콘 -->
-                <!-- 교체 예시: <img src="assets/logo.png" alt="Bracket App Icon"> -->
-                 <img src="/assets/BracketLogo.png" alt="Bracket App Icon">
+                <!-- [수정됨] 로고 경로: 앞에 / 제거 -->
+                <img src="assets/BracketLogo.png" alt="Bracket App Icon">
                 <span>Bracket</span>
             </div>
             
@@ -519,8 +542,7 @@
             </div>
             <div class="hero-visual fade-up" style="transition-delay: 0.2s;">
                 <div class="mockup-container">
-                    <!-- [이미지 위치] 메인 히어로 이미지 (목업 적용된 이미지 권장) -->
-                    <!-- 교체 예시: <img src="assets/hero_mockup.png" alt="Bracket App Interface"> -->
+                    <!-- [수정됨] 메인 목업 이미지 -->
                     <img src="assets/mainmockup.png" alt="Bracket App Interface">
                 </div>
             </div>
@@ -572,8 +594,7 @@
         <div class="container solution-content">
             <div class="solution-visual fade-up">
                 <div class="mockup-container">
-                     <!-- [이미지 위치] Tri-shot 설명 이미지 -->
-                     <!-- 교체 예시: <img src="assets/trishot_mockup.png" alt="Tri-shot Interface"> -->
+                     <!-- [수정됨] Tri-shot 설명 이미지 -->
                      <img src="assets/trishotimage.png" alt="Tri-shot Interface">
                 </div>
             </div>
@@ -605,7 +626,7 @@
                 <div class="steps-grid-3">
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [이미지 위치] Step 1 이미지 -->
+                            <!-- [수정됨] Step 1 이미지 -->
                             <img src="assets/settingmockup.png" alt="Preset List">
                         </div>
                         <div class="step-number">1</div>
@@ -614,7 +635,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [이미지 위치] Step 2 이미지 -->
+                            <!-- [수정됨] Step 2 이미지 -->
                             <img src="assets/trishot1.png" alt="Shooting">
                         </div>
                         <div class="step-number">2</div>
@@ -623,7 +644,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [이미지 위치] Step 3 이미지 -->
+                            <!-- [수정됨] Step 3 이미지 -->
                             <img src="assets/trishot2.png" alt="Auto Loop">
                         </div>
                         <div class="step-number">3</div>
@@ -648,8 +669,8 @@
                 <div class="steps-grid-3">
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [이미지 위치] Step 4 이미지 -->
-                            <img src="assets/aigroup1.png" alt="AI Grouping">
+                            <!-- [수정됨] Step 4 이미지 -->
+                            <img src="assets/aigroup1.png" alt="Photo Pile">
                         </div>
                         <div class="step-number">4</div>
                         <h4>사진량 증가</h4>
@@ -657,7 +678,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [이미지 위치] Step 5 이미지 -->
+                            <!-- [수정됨] Step 5 이미지 -->
                             <img src="assets/aigroup2.png" alt="AI Grouping">
                         </div>
                         <div class="step-number">5</div>
@@ -666,7 +687,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-img-container">
-                            <!-- [이미지 위치] Step 6 이미지 -->
+                            <!-- [수정됨] Step 6 이미지 -->
                             <img src="assets/aigroup3.png" alt="Selection">
                         </div>
                         <div class="step-number">6</div>
@@ -695,8 +716,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="logo" style="color: #666; gap: 8px;">
-                   <!-- [이미지 위치] 푸터 로고 아이콘 -->
-                   <img src="icon.jpg" style="width:24px; height:24px; object-fit: contain;" alt="icon"> Bracket
+                   <!-- [수정됨] 푸터 로고 경로 -->
+                   <img src="assets/BracketLogo.png" style="width:24px; height:24px; object-fit: contain;" alt="icon"> Bracket
                 </div>
                 <div class="footer-links">
                     <a href="#">GitHub</a>
