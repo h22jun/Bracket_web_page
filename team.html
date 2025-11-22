@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Team Honest House - Bracket 개발팀 소개">
+    <title>Team Honest House | Bracket</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- Core Variables --- */
+        :root {
+            --color-bg: #000000;
+            --color-bg-card: #1A1A1A;
+            --color-primary: #E6FF00;
+            --color-primary-hover: #C8E600;
+            --color-text-main: #FFFFFF;
+            --color-text-sub: #A1A1A1;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            --transition: all 0.3s ease;
+            --container-width: 1200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        .container {
+            width: 90%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header Styles --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 12px; }
+        .logo img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-weight: 600; font-size: 0.95rem; color: var(--color-text-sub); transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--color-primary); }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 10px 20px; font-size: 0.9rem; font-weight: 700;
+            background-color: var(--color-primary); color: #000;
+            border-radius: 12px; transition: var(--transition);
+        }
+        .btn-primary:hover { background-color: var(--color-primary-hover); transform: translateY(-2px); }
+
+        /* --- Team Page Specific Styles --- */
+        .team-hero {
+            padding-top: 140px;
+            padding-bottom: 60px;
+            text-align: center;
+            /* Gradient background added here as well for consistency */
+            background: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #000000 70%);
+        }
+        .team-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .team-hero p {
+            color: var(--color-text-sub);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Member Grid Layout */
+        .team-grid-section {
+            padding-bottom: 120px;
+            background: linear-gradient(180deg, #000000 0%, #111111 100%);
+        }
+        
+        .team-grid {
+            display: grid;
+            /* 기본적으로 3열 배치 (3명씩 한 줄) */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        /* Member Card Design */
+        .member-card {
+            background: transparent;
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        /* Memoji Placeholder Container */
+        .member-img-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Glow Effect (Yellow border at bottom) */
+        .member-img-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #222; /* Placeholder bg color */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #444;
+            position: relative;
+            z-index: 1;
+            /* Bottom glow effect simulating the image style */
+            box-shadow: 0 10px 20px -5px rgba(230, 255, 0, 0.3),
+                        inset 0 -4px 0 0px var(--color-primary);
+            overflow: hidden; /* Ensures images stay inside circle */
+        }
+
+        /* IMPORTANT: When you add real images, use this selector */
+        .member-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .member-role {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .member-desc {
+            color: var(--color-text-sub);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            min-height: 3em; /* Keeps card height consistent */
+        }
+
+        .member-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .member-link a:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: rgba(230, 255, 0, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            /* 화면이 좁아져도 3열 배치를 유지하되 간격을 줄임 */
+            .team-grid { gap: 20px; }
+        }
+        @media (max-width: 768px) {
+            .team-hero h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+            /* 모바일에서는 가독성을 위해 1열로 변경 */
+            .team-grid { grid-template-columns: 1fr; gap: 60px; }
+            .member-card { padding: 0; }
+        }
+
+        /* Animation */
+        .fade-up {
+            opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Footer */
+        footer { padding: 60px 0; border-top: 1px solid #222; font-size: 0.9rem; color: #666; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a:hover { color: var(--color-primary); }
+        .team-info { font-size: 0.8rem; margin-top: 16px; color: #444; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="icon.jpg" alt="Bracket App Icon">
+                Bracket
+            </a>
+            <nav class="nav-links">
+                <!-- Overview Link Removed -->
+                <a href="team.html" class="active">Team</a>
+            </nav>
+            <a href="index.html#cta" class="btn-primary">다운로드</a>
+        </div>
+    </header>
+
+    <section class="team-hero fade-up">
+        <div class="container">
+            <h1>Team Honest House</h1>
+            <p>떳떳하우스는 포스텍 애플 디벨로퍼 아카데미에서 만난<br>6명의 메이커들로 구성된 팀입니다.</p>
+        </div>
+    </section>
+
+    <section class="team-grid-section fade-up">
+        <div class="container">
+            <div class="team-grid">
+                
+                <!-- Member 1: Sandeul -->
+                <div class="member-card">
+                    <div class="member-img-container">
+                        <!-- 나중에 이미지를 넣을 때: <img src="sandeul.png" alt="Sandeul Memoji"> 를 아래 div 안에 넣거나 대체하세요 -->
+                        <div class="member-img-placeholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>양희준 Sandeul</h3>
+                        <span class="member-role">PM</span>
+                        <p class="member-desc">프로젝트 일정 관리 및<br>핵심 기능 기획 리딩</p>
+                        <div class="member-link">
+                            <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i> Profile</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 2: Hari -->
+                <div class="member-card">
+                    <div class="member-img-container">
+                        <div class="member-img-placeholder">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>윤하정 Hari</h3>
+                        <span class="member-role">Design</span>
+                        <p class="member-desc">UI/UX 디자인 총괄 및<br>브랜드 아이덴티티 정립</p>
+                        <div class="member-link">
+                            <a href="#" target="_blank"><i class="fa-solid fa-globe"></i> Portfolio</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 3: Soop -->
+                <div class="member-card">
+                    <div class="member-img-container">
+                        <div class="member-img-placeholder">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>한수빈 Soop</h3>
+                        <span class="member-role">Tech</span>
+                        <p class="member-desc">iOS 카메라 로직 구현 및<br>프리셋 데이터 관리</p>
+                        <div class="member-link">
+                            <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 4: Rama -->
+                <div class="member-card">
+                    <div class="member-img-container">
+                        <div class="member-img-placeholder">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>문형근 Rama</h3>
+                        <span class="member-role">Tech</span>
+                        <p class="member-desc">Canon Control API 연동 및<br>통신 최적화</p>
+                        <div class="member-link">
+                            <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 5: Minbol -->
+                <div class="member-card">
+                    <div class="member-img-container">
+                        <div class="member-img-placeholder">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>이보민 Minbol</h3>
+                        <span class="member-role">Tech</span>
+                        <p class="member-desc">AI 이미지 분석 알고리즘 및<br>자동 그룹핑 구현</p>
+                        <div class="member-link">
+                            <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 6: Ivy -->
+                <div class="member-card">
+                    <div class="member-img-container">
+                        <div class="member-img-placeholder">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>이현주 Ivy</h3>
+                        <span class="member-role">Tech</span>
+                        <p class="member-desc">Tri-shot 순환 로직 및<br>UI 인터랙션 개발</p>
+                        <div class="member-link">
+                            <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo" style="color: #666; gap: 8px;">
+                   <img src="icon.jpg" style="width:24px; height:24px; border-radius:6px; filter: grayscale(100%);" alt="icon"> Bracket
+                </div>
+                <div class="footer-links">
+                    <a href="#">GitHub</a>
+                    <a href="#">Notion</a>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #333; padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <p style="font-size: 0.75rem; color: #444;">Contact: honesthouse2025@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

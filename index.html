@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bracket - 미러리스 카메라 사용자를 위한 자동 설정 변경 및 AI 사진 정리 솔루션.">
+    <title>Bracket | 15초에서 0.3초로</title>
+    
+    <!-- Font: Inter & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. CSS Variables & Reset --- */
+        :root {
+            --color-bg: #000000;
+            --color-bg-card: #1A1A1A;
+            --color-primary: #E6FF00; /* 형광 연두 */
+            --color-primary-hover: #C8E600;
+            --color-text-main: #FFFFFF;
+            --color-text-sub: #A1A1A1;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            --transition: all 0.3s ease;
+            --container-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- 2. Utility Classes --- */
+        .container {
+            width: 90%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-primary { color: var(--color-primary); }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: #000;
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover);
+            border-color: var(--color-primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        /* Gradient Backgrounds */
+        .bg-hero {
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 80%);
+        }
+        
+        .bg-gradient-down {
+            background: linear-gradient(180deg, #000000 0%, #111111 100%);
+        }
+
+        .bg-gradient-up {
+            background: linear-gradient(180deg, #111111 0%, #000000 100%);
+        }
+
+        .bg-gradient-seamless {
+            background: linear-gradient(180deg, #000000 0%, #111111 50%, #000000 100%);
+        }
+
+        .bg-gradient-cta {
+            background: radial-gradient(circle at 50% 50%, #1A1A1A 0%, #000000 100%);
+        }
+
+        @media (max-width: 768px) {
+            .section-padding { padding: 80px 0; }
+        }
+
+        /* --- 3. Animation Classes --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 4. Header & Nav --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px; 
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            color: var(--color-text-sub);
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--color-primary); }
+
+        /* --- 5. Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--color-text-sub);
+            margin-bottom: 40px;
+            max-width: 540px;
+            line-height: 1.6;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Optimized Mockup Size */
+        .mockup-container {
+            position: relative;
+            width: 100%;
+            max-width: 280px; /* Desktop size optimized */
+            aspect-ratio: 1206/2622;
+            margin: 0 auto;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(230, 255, 0, 0.1);
+            border: 6px solid #222;
+            background: #000;
+        }
+
+        .mockup-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-text h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { min-height: auto; padding-bottom: 60px; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .hero-text h1 { font-size: 2.4rem; margin-bottom: 16px; } /* Adjusted for mobile readability */
+            .hero-text p { margin: 0 auto 30px; font-size: 1.05rem; }
+            .hero-btns { justify-content: center; }
+            /* Mobile mockup size optimized */
+            .mockup-container { margin-top: 20px; max-width: 220px; }
+            .nav-links { display: none; }
+        }
+
+        /* --- 6. Problem & Solution Section --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        /* PS Grid */
+        .ps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .ps-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0; 
+        }
+
+        .problem-card {
+            background: #161616;
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 1px solid #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .problem-card h3 { font-size: 1.3rem; color: #ccc; margin-bottom: 10px; font-weight: 700; }
+        .problem-card p { color: #888; font-size: 0.95rem; }
+        .problem-card .icon { color: #666; font-size: 1.8rem; margin-bottom: 20px; }
+
+        .ps-connector {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .ps-connector::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, #333, var(--color-primary));
+            z-index: 0;
+        }
+
+        .ps-connector i {
+            background: #000;
+            color: var(--color-primary);
+            padding: 8px;
+            border-radius: 50%;
+            border: 1px solid #333;
+            position: relative;
+            z-index: 1;
+            font-size: 0.8rem;
+        }
+
+        .solution-card {
+            background: rgba(230, 255, 0, 0.03);
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 1px solid var(--color-primary);
+            box-shadow: 0 0 40px rgba(230, 255, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .solution-card h3 { font-size: 1.4rem; color: #fff; margin-bottom: 10px; font-weight: 700; }
+        .solution-card p { color: var(--color-text-sub); font-size: 0.95rem; }
+        
+        .solution-card .icon {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .ps-grid { grid-template-columns: 1fr; gap: 60px; }
+            .section-title h2 { font-size: 2rem; }
+        }
+
+        /* --- 7. Solution Section (Tri-shot) --- */
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .solution-text h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: var(--color-text-sub);
+        }
+
+        .feature-list i {
+            color: var(--color-primary);
+            margin-right: 16px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .solution-content { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; gap: 40px; }
+            .solution-text h2 { font-size: 2.2rem; }
+        }
+
+        /* --- 8. How It Works --- */
+        .workflow-section { margin-bottom: 100px; }
+
+        .workflow-header {
+            margin-bottom: 40px;
+            border-left: 4px solid var(--color-primary);
+            padding-left: 20px;
+        }
+
+        .workflow-header h3 { font-size: 1.8rem; color: #fff; margin-bottom: 8px; }
+        .workflow-header p { color: var(--color-text-sub); font-size: 1rem; }
+
+        .workflow-bridge {
+            text-align: center;
+            margin: 80px 0;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(230, 255, 0, 0.05) 0%, rgba(0,0,0,0) 100%);
+            border-radius: 24px;
+            border-top: 1px solid rgba(230, 255, 0, 0.1);
+        }
+
+        .workflow-bridge h4 { font-size: 1.8rem; color: #fff; margin-bottom: 12px; }
+        .workflow-bridge p { color: var(--color-text-sub); font-size: 1.1rem; }
+
+        .steps-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .step-item { text-align: center; position: relative; }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--color-primary);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.9rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-img-container {
+            width: 100%;
+            aspect-ratio: 1206/2622;
+            background: var(--color-bg-card);
+            border-radius: 24px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            border: 1px solid #333;
+            /* Reduced max-width for steps to match design */
+            max-width: 240px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .step-img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .step-item h4 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
+        .step-item p { color: var(--color-text-sub); font-size: 0.95rem; line-height: 1.5; }
+
+        @media (max-width: 768px) {
+            .steps-grid-3 { grid-template-columns: 1fr; gap: 60px; }
+            .workflow-bridge h4 { font-size: 1.4rem; }
+            .workflow-section { margin-bottom: 60px; }
+        }
+
+        /* --- 11. CTA Section --- */
+        .cta-section {
+            text-align: center;
+            padding: 120px 20px;
+        }
+        
+        .cta-content { max-width: 600px; margin: 0 auto; }
+        
+        .cta-content h2 { font-size: 2.8rem; margin-bottom: 16px; }
+        .cta-content p { font-size: 1.1rem; color: var(--color-text-sub); margin-bottom: 40px; }
+
+        @media (max-width: 768px) {
+            .cta-content h2 { font-size: 2rem; }
+        }
+
+        /* --- 12. Footer --- */
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a:hover { color: var(--color-primary); }
+
+        .team-info {
+            font-size: 0.8rem;
+            margin-top: 16px;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; gap: 24px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="icon.jpg" alt="Bracket App Icon">
+                Bracket
+            </div>
+            <nav class="nav-links">
+                <a href="team.html">Team</a>
+            </nav>
+            <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;" target="_blank">다운로드</a>
+        </div>
+    </header>
+
+    <!-- Hero Section (Gradient BG) -->
+    <section class="hero bg-hero">
+        <div class="container hero-content">
+            <div class="hero-text fade-up">
+                <h1>15초 걸리던<br>설정 변경,<br>이제 <span class="text-primary">0.3초</span></h1>
+                <p>노출 3요소를 이해하는 당신을 위한,<br>골든아워를 놓치지 않는 가장 빠른 카메라 제어 앱</p>
+                <div class="hero-btns">
+                    <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn btn-primary" target="_blank"><i class="fa-brands fa-apple"></i> App Store에서 다운로드</a>
+                </div>
+            </div>
+            <div class="hero-visual fade-up" style="transition-delay: 0.2s;">
+                <div class="mockup-container">
+                    <img src="hero.png" alt="Bracket App Interface">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem & Solution Section (Gradient BG: Black to Dark) -->
+    <section class="section-padding bg-gradient-down">
+        <div class="container">
+            <div class="section-title fade-up">
+                <h2>당신이 순간을 놓치는 이유<br><span style="font-size: 0.6em; color: #666; font-weight: 400; display:block; margin-top:10px;">그리고 Bracket이 제시하는 명쾌한 해답</span></h2>
+            </div>
+            
+            <div class="ps-grid">
+                <!-- Group 1 -->
+                <div class="ps-group fade-up">
+                    <div class="problem-card">
+                        <div class="icon"><i class="fa-solid fa-shuffle"></i></div>
+                        <h3>설정 조작의 비효율</h3>
+                        <p>촬영 때마다 설정값을 변경하는 과정은 불필요한 주의력과 시간을 소모시킵니다.</p>
+                    </div>
+                    <div class="ps-connector"><i class="fa-solid fa-arrow-down"></i></div>
+                    <div class="solution-card">
+                        <div class="icon"><i class="fa-solid fa-camera-rotate"></i></div>
+                        <h3>Tri-shot</h3>
+                        <p>촬영 목적에 맞는 설정을 미리 저장하고 즉시 전환하세요. Canon Camera Control API를 통해 지연 없이 연동됩니다.</p>
+                    </div>
+                </div>
+                <!-- Group 2 -->
+                <div class="ps-group fade-up" style="transition-delay: 0.2s;">
+                    <div class="problem-card">
+                        <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <h3>데이터 관리의 부담</h3>
+                        <p>수백 장의 사진을 수동으로 분류하는 것은 비생산적인 반복 노동입니다.</p>
+                    </div>
+                    <div class="ps-connector"><i class="fa-solid fa-arrow-down"></i></div>
+                    <div class="solution-card">
+                        <div class="icon"><i class="fa-solid fa-robot"></i></div>
+                        <h3>AI 사진 그룹화</h3>
+                        <p>Apple Vision Framework가 촬영된 사진을 자동으로 분류하여 정리해줍니다. 정리된 사진 중 베스트 컷만 선택해 갤러리에 저장하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section (Tri-shot) (Gradient BG: Dark to Black) -->
+    <section class="section-padding bg-gradient-up" style="padding-bottom: 80px;">
+        <div class="container solution-content">
+            <div class="solution-visual fade-up">
+                <div class="mockup-container">
+                     <img src="solution.png" alt="Tri-shot Interface">
+                </div>
+            </div>
+            <div class="solution-text fade-up" id="solution-text">
+                <h2 class="text-primary">Tri-shot:<br>셔터마다 바뀌는<br>세 가지 시선</h2>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> 셔터를 누를 때마다 프리셋 자동 순환 (A→B→C)</li>
+                    <li><i class="fa-solid fa-check"></i> 촬영 즉시 다음 설정값으로 자동 대기</li>
+                    <li><i class="fa-solid fa-check"></i> 카메라 조작 없이 셔터만으로 다양한 연출 가능</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works (Gradient BG: Seamless Black-Dark-Black) -->
+    <section class="section-padding how-it-works bg-gradient-seamless">
+        <div class="container">
+            <div class="section-title fade-up">
+                <h2>How It Works</h2>
+                <p>촬영부터 정리까지, 끊김 없는 워크플로우</p>
+            </div>
+
+            <!-- Part 1: Tri-shot Workflow -->
+            <div class="workflow-section fade-up">
+                <div class="workflow-header">
+                    <h3>Part 1. 촬영</h3>
+                    <p>셔터만 누르세요. 설정은 Bracket이 담당합니다.</p>
+                </div>
+                <div class="steps-grid-3">
+                    <div class="step-item">
+                        <div class="step-img-container">
+                            <img src="step1.jpg" alt="Preset List">
+                        </div>
+                        <div class="step-number">1</div>
+                        <h4>프리셋 설정</h4>
+                        <p>자주 쓰는 ISO, 조리개, 셔터스피드 조합을<br>미리 저장해두세요.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-img-container">
+                            <img src="step2.png" alt="Shooting">
+                        </div>
+                        <div class="step-number">2</div>
+                        <h4>Tri-shot 대기</h4>
+                        <p>촬영 전 Tri-shot 모드를 켜면<br>모든 준비는 끝납니다.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-img-container">
+                            <img src="solution.png" alt="Auto Loop">
+                        </div>
+                        <div class="step-number">3</div>
+                        <h4>자동 순환 촬영</h4>
+                        <p>셔터를 누를 때마다 A→B→C 설정이<br>자동으로 바뀌며 연속 촬영됩니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bridge: Problem Statement -->
+            <div class="workflow-bridge fade-up">
+                <h4>"Tri-shot으로 확보한 수많은 사진,<br>정리가 걱정되시나요?"</h4>
+                <p>걱정 마세요. 늘어난 결과물은 AI가 스마트하게 관리해 드립니다.</p>
+            </div>
+
+            <!-- Part 2: AI Grouping Workflow -->
+            <div class="workflow-section fade-up">
+                <div class="workflow-header">
+                    <h3>Part 2. 정리</h3>
+                    <p>수백 장의 사진 속에서 베스트 컷을 찾는 가장 빠른 방법</p>
+                </div>
+                <div class="steps-grid-3">
+                    <div class="step-item">
+                        <div class="step-img-container">
+                            <div style="width:100%; height:100%; background:#222; display:flex; align-items:center; justify-content:center; color:#666;">
+                                <i class="fa-solid fa-images fa-3x"></i>
+                            </div>
+                        </div>
+                        <div class="step-number">4</div>
+                        <h4>사진량 증가</h4>
+                        <p>다양한 설정으로 촬영한 만큼<br>갤러리에는 많은 사진이 쌓입니다.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-img-container">
+                            <img src="step3.jpg" alt="AI Grouping">
+                        </div>
+                        <div class="step-number">5</div>
+                        <h4>AI 자동 그룹핑</h4>
+                        <p>Apple Vision Framework가<br>유사한 장면을 자동으로 묶어줍니다.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-img-container">
+                            <img src="step3.jpg" alt="Selection">
+                        </div>
+                        <div class="step-number">6</div>
+                        <h4>베스트 컷 선택</h4>
+                        <p>정리된 그룹에서 잘 나온 사진만<br>빠르게 골라 저장하세요.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- CTA Section (Gradient BG: Radial for seamless end) -->
+    <section id="cta" class="cta-section bg-gradient-cta fade-up">
+        <div class="cta-content">
+            <h2>더 이상 순간을 놓치지 마세요</h2>
+            <p>지금 Bracket을 다운로드하고, 모든 결정적 순간을 담으세요.</p>
+            <div class="hero-btns" style="justify-content: center;">
+                <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn btn-primary" target="_blank"><i class="fa-brands fa-apple"></i> App Store에서 다운로드</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo" style="color: #666; gap: 8px;">
+                   <img src="icon.jpg" style="width:24px; height:24px; border-radius:6px; filter: grayscale(100%);" alt="icon"> Bracket
+                </div>
+                <div class="footer-links">
+                    <a href="#">GitHub</a>
+                    <a href="#">Notion</a>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #333; padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <p style="font-size: 0.75rem; color: #444;">Contact: honesthouse2025@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach((element) => observer.observe(element));
+    </script>
+</body>
+</html>
