@@ -17,6 +17,7 @@
         :root {
             --color-bg: #000000;
             --color-bg-card: #1A1A1A;
+            /* 메인 컬러: #E6FF79 */
             --color-primary: #E6FF79; 
             --color-primary-hover: #dbe660;
             --color-text-main: #FFFFFF;
@@ -54,17 +55,18 @@
 
         .text-primary { color: var(--color-primary); }
         
+        /* [수정됨] 버튼 사이즈 축소 및 통일 */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 24px;
-            font-size: 1rem;
+            padding: 8px 16px; /* 사이즈 축소 */
+            font-size: 0.85rem; /* 폰트 축소 */
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 10px; /* 라운드 조정 */
             cursor: pointer;
             transition: var(--transition);
-            gap: 8px;
+            gap: 6px;
             white-space: nowrap;
         }
 
@@ -87,10 +89,15 @@
         /* Gradient Backgrounds */
         .bg-hero {
             background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 80%);
+            position: relative;
+            z-index: 1;
         }
         
         .bg-gradient-down {
             background: linear-gradient(180deg, #000000 0%, #111111 100%);
+            margin-top: -1px; 
+            position: relative;
+            z-index: 0;
         }
 
         .bg-gradient-up {
@@ -172,7 +179,8 @@
 
         @media (max-width: 480px) {
             .nav-actions { gap: 15px; }
-            .btn { padding: 10px 16px; font-size: 0.9rem; }
+            /* 모바일에서도 통일된 작은 사이즈 적용 */
+            .btn { padding: 8px 16px; font-size: 0.85rem; }
             .logo span { display: none; }
         }
 
@@ -214,7 +222,7 @@
             flex-wrap: wrap;
         }
 
-        /* Mockup Size: Desktop Large */
+        /* Optimized Mockup Size */
         .mockup-container-hero {
             position: relative;
             width: 100%;
@@ -244,7 +252,7 @@
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
 
-        /* [수정됨] AI Grouping Section Mockup Size (Large) */
+        /* AI Grouping Section Mockup Size (Large) */
         .mockup-container-ai {
             position: relative;
             width: 100%;
@@ -275,7 +283,6 @@
             /* Mobile Size */
             .mockup-container-hero { margin-top: 20px; max-width: 240px; }
             .mockup-container-trishot { margin-top: 20px; max-width: 240px; }
-            /* [수정됨] AI Grouping Mobile Size (1.2x larger) */
             .mockup-container-ai { margin-top: 20px; max-width: 288px; }
             
             .nav-links { display: none; }
@@ -376,7 +383,6 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
-            /* [수정됨] Vertical Alignment Fix */
             align-items: center; 
         }
 
