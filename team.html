@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- Core Variables --- */
+        /* --- Core Variables (Synced with index.html) --- */
         :root {
             --color-bg: #000000;
             --color-bg-card: #1A1A1A;
             /* 메인 컬러 변경: #E6FF00 -> #E6FF79 */
             --color-primary: #E6FF79; 
-            --color-primary-hover: #d4eb60; 
+            --color-primary-hover: #dbe660; 
             --color-text-main: #FFFFFF;
             --color-text-sub: #A1A1A1;
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -43,7 +43,7 @@
             padding: 0 20px;
         }
 
-        /* --- Header Styles (Matched with Index) --- */
+        /* --- Header Styles (Updated to match Index) --- */
         header {
             position: fixed;
             top: 0;
@@ -51,16 +51,19 @@
             z-index: 1000;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(12px);
-            padding: 16px 0;
+            padding: 16px 0; /* Index와 동일 */
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        /* [이미지 위치] 상단 로고 아이콘 */
+        
+        /* 로고 스타일 통일 */
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--color-text-main); display: flex; align-items: center; gap: 10px; }
         .logo img { width: 32px; height: 32px; object-fit: contain; }
         
+        /* 우측 액션 그룹 */
         .nav-actions { display: flex; align-items: center; gap: 20px; }
         
+        /* TEAM 링크 스타일 통일 */
         .nav-link-team {
             font-weight: 700; 
             font-size: 1rem; 
@@ -69,18 +72,22 @@
             letter-spacing: 0.5px;
         }
 
+        /* [버튼 스타일 통일] - index.html과 동일하게 설정 */
         .btn-primary {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 12px 24px; font-size: 1rem; font-weight: 700;
+            padding: 8px 16px; /* 사이즈 축소 */
+            font-size: 0.85rem;  /* 폰트 축소 */
+            font-weight: 700;
             background-color: var(--color-primary); color: #000;
-            border-radius: 12px; transition: var(--transition);
+            border-radius: 10px; /* 라운드 조정 */
+            transition: var(--transition);
             white-space: nowrap;
         }
         .btn-primary:hover { background-color: var(--color-primary-hover); transform: translateY(-2px); }
         
         @media (max-width: 480px) {
             .nav-actions { gap: 15px; }
-            .btn-primary { padding: 10px 16px; font-size: 0.9rem; }
+            .btn-primary { padding: 8px 16px; font-size: 0.85rem; }
             .logo span { display: none; }
         }
 
@@ -153,7 +160,6 @@
             overflow: hidden;
         }
 
-        /* [이미지 위치] 팀원 미모지 이미지 */
         .member-img-placeholder img {
             width: 100%;
             height: 100%;
@@ -231,15 +237,13 @@
     <header>
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <!-- [이미지 위치] 로고 아이콘 -->
-                <!-- 교체 예시: <img src="assets/logo.png" alt="Bracket App Icon"> -->
-                <img src="assets/BracketLogo.png" alt="Bracket App Icon">
+                <img src="icon.jpg" alt="Bracket App Icon">
                 <span>Bracket</span>
             </a>
             
             <div class="nav-actions">
                 <a href="team.html" class="nav-link-team">TEAM</a>
-                <a href="index.html#cta" class="btn-primary">다운로드</a>
+                <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn-primary" target="_blank">다운로드</a>
             </div>
         </div>
     </header>
@@ -247,6 +251,7 @@
     <section class="team-hero fade-up">
         <div class="container">
             <h1>Team Honest House</h1>
+            <p>떳떳하우스는 포스텍 애플 디벨로퍼 아카데미에서 만난<br>6명의 메이커들로 구성된 팀입니다.</p>
         </div>
     </section>
 
@@ -257,10 +262,8 @@
                 <!-- Member 1: Sandeul -->
                 <div class="member-card">
                     <div class="member-img-container">
-                        <!-- [이미지 위치] 팀원 1 미모지 -->
-                        <img src="assets/sandeul.png" alt="sandeulimoji">
                         <div class="member-img-placeholder">
-                            <i class="fa-solid fa-user"></i>
+                            <img src="assets/sandeul.png" alt="Sandeul">
                         </div>
                     </div>
                     <div class="member-info">
@@ -276,16 +279,14 @@
                 <!-- Member 2: Hari -->
                 <div class="member-card">
                     <div class="member-img-container">
-                        <!-- [이미지 위치] 팀원 2 미모지 -->
-                         <img src="assets/hari.png" alt="hariimoji">
                         <div class="member-img-placeholder">
-                            <i class="fa-solid fa-pen-nib"></i>
+                             <img src="assets/hari.png" alt="Hari">
                         </div>
                     </div>
                     <div class="member-info">
                         <h3>윤하정 Hari</h3>
                         <span class="member-role">Design</span>
-                        <p class="member-desc">UX/UI 디자인 총괄 및<br>브랜드 아이덴티티 정립</p>
+                        <p class="member-desc">UI/UX 디자인 총괄 및<br>브랜드 아이덴티티 정립</p>
                         <div class="member-link">
                             <a href="#" target="_blank"><i class="fa-solid fa-globe"></i> Portfolio</a>
                         </div>
@@ -295,16 +296,14 @@
                 <!-- Member 3: Soop -->
                 <div class="member-card">
                     <div class="member-img-container">
-                        <!-- [이미지 위치] 팀원 3 미모지 -->
-                         <img src="assets/soop.png" alt="soopimoji">
                         <div class="member-img-placeholder">
-                            <i class="fa-solid fa-code"></i>
+                             <img src="assets/soop.png" alt="Soop">
                         </div>
                     </div>
                     <div class="member-info">
                         <h3>한수빈 Soop</h3>
                         <span class="member-role">Tech</span>
-                        <p class="member-desc">Canon Control API 로직 구현 및<br>프리셋 생성 커스텀 UI 관리</p>
+                        <p class="member-desc">iOS 카메라 로직 구현 및<br>프리셋 데이터 관리</p>
                         <div class="member-link">
                             <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
                         </div>
@@ -314,9 +313,8 @@
                 <!-- Member 4: Rama -->
                 <div class="member-card">
                     <div class="member-img-container">
-                        <img src="assets/rama.png" alt="ramaimoji">
                         <div class="member-img-placeholder">
-                            <i class="fa-solid fa-terminal"></i>
+                             <img src="assets/rama.png" alt="Rama">
                         </div>
                     </div>
                     <div class="member-info">
@@ -332,15 +330,14 @@
                 <!-- Member 5: Minbol -->
                 <div class="member-card">
                     <div class="member-img-container">
-                        <img src="assets/minbol.png" alt="minbolimoji">
                         <div class="member-img-placeholder">
-                            <i class="fa-solid fa-laptop-code"></i>
+                             <img src="assets/minbol.png" alt="Minbol">
                         </div>
                     </div>
                     <div class="member-info">
                         <h3>이보민 Minbol</h3>
                         <span class="member-role">Tech</span>
-                        <p class="member-desc">Tri-shot 순환 로직 및<br>UI 인터랙션 개발</p>
+                        <p class="member-desc">AI 이미지 분석 알고리즘 및<br>자동 그룹핑 구현</p>
                         <div class="member-link">
                             <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
                         </div>
@@ -350,15 +347,14 @@
                 <!-- Member 6: Ivy -->
                 <div class="member-card">
                     <div class="member-img-container">
-                        <img src="assets/ivy.png" alt="ivyimoji">
                         <div class="member-img-placeholder">
-                            <i class="fa-solid fa-mobile-screen"></i>
+                             <img src="assets/ivy.png" alt="Ivy">
                         </div>
                     </div>
                     <div class="member-info">
                         <h3>이현주 Ivy</h3>
                         <span class="member-role">Tech</span>
-                        <p class="member-desc">AI 이미지 분석 알고리즘 및<br>자동 그룹핑 구현</p>
+                        <p class="member-desc">Tri-shot 순환 로직 및<br>UI 인터랙션 개발</p>
                         <div class="member-link">
                             <a href="#" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
                         </div>
@@ -373,7 +369,6 @@
         <div class="container">
             <div class="footer-content">
                 <div class="logo" style="color: #666; gap: 8px;">
-                   <!-- [이미지 위치] 푸터 로고 아이콘 -->
                    <img src="icon.jpg" style="width:24px; height:24px; object-fit: contain;" alt="icon"> Bracket
                 </div>
                 <div class="footer-links">

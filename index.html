@@ -55,7 +55,7 @@
 
         .text-primary { color: var(--color-primary); }
         
-        /* [수정됨] 버튼 사이즈 축소 및 통일 */
+        /* [버튼 스타일 통일] - team.html과 동일하게 설정 */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -128,7 +128,7 @@
             transform: translateY(0);
         }
 
-        /* --- 4. Header & Nav --- */
+        /* --- 4. Header & Nav (Updated for consistency) --- */
         header {
             position: fixed;
             top: 0;
@@ -136,7 +136,7 @@
             z-index: 1000;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(12px);
-            padding: 16px 0;
+            padding: 16px 0; /* 패딩 통일 */
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -146,8 +146,9 @@
             align-items: center;
         }
 
+        /* 로고 스타일 통일 */
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.4rem; /* 폰트 크기 통일 */
             font-weight: 800;
             color: var(--color-text-main);
             display: flex;
@@ -156,17 +157,19 @@
         }
 
         .logo img {
-            width: 32px;
+            width: 32px; /* 이미지 크기 통일 */
             height: 32px;
             object-fit: contain;
         }
 
+        /* 우측 네비게이션 액션 그룹 */
         .nav-actions {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
+        /* TEAM 링크 스타일 통일 */
         .nav-link-team {
             font-weight: 700; 
             font-size: 1rem; 
@@ -179,8 +182,7 @@
 
         @media (max-width: 480px) {
             .nav-actions { gap: 15px; }
-            /* 모바일에서도 통일된 작은 사이즈 적용 */
-            .btn { padding: 8px 16px; font-size: 0.85rem; }
+            .btn { padding: 8px 16px; font-size: 0.85rem; } /* 모바일 버튼 크기 통일 */
             .logo span { display: none; }
         }
 
@@ -237,11 +239,11 @@
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
 
-        /* Tri-shot Section Mockup Size (Standard) */
+        /* Tri-shot Section Mockup Size */
         .mockup-container-trishot {
             position: relative;
             width: 100%;
-            max-width: 300px; /* 기존 크기 유지 */
+            max-width: 300px; 
             margin: 0 auto;
         }
 
@@ -252,11 +254,11 @@
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
 
-        /* AI Grouping Section Mockup Size (Large) */
+        /* AI Grouping Section Mockup Size */
         .mockup-container-ai {
             position: relative;
             width: 100%;
-            max-width: 450px; /* 1.5배 확대 */
+            max-width: 450px; 
             margin: 0 auto;
         }
 
@@ -284,8 +286,6 @@
             .mockup-container-hero { margin-top: 20px; max-width: 240px; }
             .mockup-container-trishot { margin-top: 20px; max-width: 240px; }
             .mockup-container-ai { margin-top: 20px; max-width: 288px; }
-            
-            .nav-links { display: none; }
         }
 
         /* --- 6. Problem & Solution Section --- */
@@ -305,12 +305,14 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
+            align-items: stretch; /* Stretch to match heights */
         }
 
         .ps-group {
             display: flex;
             flex-direction: column;
             gap: 0; 
+            height: 100%; /* Ensure group takes full height if needed */
         }
 
         .problem-card {
@@ -320,10 +322,13 @@
             border: 1px solid #333;
             position: relative;
             z-index: 1;
+            height: 100%; /* Fill height */
+            display: flex;
+            flex-direction: column;
         }
 
         .problem-card h3 { font-size: 1.3rem; color: #ccc; margin-bottom: 10px; font-weight: 700; }
-        .problem-card p { color: #888; font-size: 0.95rem; }
+        .problem-card p { color: #888; font-size: 0.95rem; flex-grow: 1; } /* Push content to fill */
         .problem-card .icon { color: #666; font-size: 1.8rem; margin-bottom: 20px; }
 
         .ps-connector {
@@ -332,6 +337,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            flex-shrink: 0; /* Prevent connector from shrinking */
         }
         
         .ps-connector::before {
@@ -362,10 +368,13 @@
             box-shadow: 0 0 40px rgba(230, 255, 121, 0.05); 
             position: relative;
             z-index: 1;
+            height: 100%; /* Fill height */
+            display: flex;
+            flex-direction: column;
         }
 
         .solution-card h3 { font-size: 1.4rem; color: #fff; margin-bottom: 10px; font-weight: 700; }
-        .solution-card p { color: var(--color-text-sub); font-size: 0.95rem; }
+        .solution-card p { color: var(--color-text-sub); font-size: 0.95rem; flex-grow: 1; }
         
         .solution-card .icon {
             font-size: 2rem;
@@ -556,6 +565,7 @@
                 <span>Bracket</span>
             </div>
             
+            <!-- Unified Right Actions: Team Link + Download Button -->
             <div class="nav-actions">
                 <a href="team.html" class="nav-link-team">TEAM</a>
                 <a href="https://apps.apple.com/kr/app/bracket-%EB%AF%B8%EB%9F%AC%EB%A6%AC%EC%8A%A4-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%B3%B4%EC%A1%B0-%EC%95%B1/id6755022196" class="btn btn-primary" target="_blank">다운로드</a>
